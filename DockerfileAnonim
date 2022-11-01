@@ -1,0 +1,17 @@
+# syntax=docker/dockerfile:1
+
+FROM node:19.0.0
+ENV NODE_ENV=production
+ENV FORGE_CLIENT_ID=""
+ENV FORGE_CLIENT_SECRET=""
+ENV FORGE_CALLBACK_URL="http://localhost:3000/api/forge/callback/oauth"
+
+WORKDIR /app
+
+COPY ["package.json", "package-lock.json*", "./"]
+
+RUN npm install --production
+
+COPY . .
+
+CMD [ "node", "start.js" ]
